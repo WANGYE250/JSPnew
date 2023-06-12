@@ -17,7 +17,7 @@ public class LoginServlet extends HttpServlet {
     @Serial
     private static final long serialVersionUID = 1L;
 
-    private static final String DB_URL = "jdbc:sqlserver://localhost:1433;DatabaseName=Java_Test;trustServerCertificate=true";
+    private static final String DB_URL = "jdbc:sqlserver://localhost:1433;DatabaseName=TestSystem;trustServerCertificate=true";
     private static final String DB_USERNAME = "sa";
     private static final String DB_PASSWORD = "sjk12345";
 
@@ -73,7 +73,7 @@ public class LoginServlet extends HttpServlet {
             System.out.println("正常连接数据库");
         }
         catch(SQLException e) {
-            System.out.println(e);
+            e.printStackTrace();
         }
         try {
 
