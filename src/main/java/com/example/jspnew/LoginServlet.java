@@ -12,7 +12,7 @@ import java.io.Serial;
 import java.sql.*;
 import java.util.ArrayList;
 
-@WebServlet(name = "LoginServlet", value = "/LoginServlet")
+@WebServlet(name = "LoginServlet", value = "/Administrator/LoginServlet")
 public class LoginServlet extends HttpServlet {
     @Serial
     private static final long serialVersionUID = 1L;
