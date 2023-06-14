@@ -1,5 +1,6 @@
 package com.example.jspnew.servlet;
 
+import com.example.jspnew.javabean.Validate;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -24,13 +25,14 @@ public class LoginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html;charset = UTF-8");
         String action = request.getParameter("action");
+        Validate validate=new Validate(action);
 
-        if (action != null && action.equals("login")) {
-            System.out.println("login");
-            String username = request.getParameter("name");
+        if (action != null) {
+            System.out.println("用户登录:"+action);
+            String username = request.getParameter("id");
             String password = request.getParameter("pwd");
 
-            if (validateUser(username, password)) {
+            if (validate.ValidateUser(username, password)) {
                 // 用户验证成功，进行相应的操作
                 //response.getWriter().println("登录成功");
                 PrintWriter out = response.getWriter();
@@ -43,66 +45,9 @@ public class LoginServlet extends HttpServlet {
 
                 out.println("登录失败");
             }
-        } else if (action != null && action.equals("register")) {
-            String username = request.getParameter("name");
-            String password = request.getParameter("pwd");
-            System.out.println("register");
-
-            if (registerUser(username, password)) {
-                // 用户注册成功，进行相应的操作
-                response.getWriter().println("注册成功");
-            } else {
-                // 用户注册失败，显示错误信息
-                response.getWriter().println("注册失败");
-            }
-        }
-        else if (action != null && action.equals("Teacher")){
-
         }
     }
 
-    private boolean validateUser(String username, String password) {
-        Connection connection = null;
-        PreparedStatement statement=null;
-        ResultSet resultSet=null;
-
-        try {
-            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            connection = DriverManager.getConnection(DB_URL,DB_USERNAME,DB_PASSWORD);
-            System.out.println("正常连接数据库");
-        }
-        catch(SQLException | ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-        try {
-
-            String sql = "SELECT * FROM TestSystem.dbo.Administrator WHERE name = ? AND password = ?";
-
-            if (connection != null) {
-                statement = connection.prepareStatement(sql);
-                statement.setString(1, username);
-                statement.setString(2, password);
-                resultSet = statement.executeQuery();
-            }
-            if (resultSet != null) {
-                return resultSet.next(); // 如果存在匹配的用户记录，则验证成功
-            }
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
-        }
-        finally {
-            try {
-                if (resultSet != null) resultSet.close();
-                if (statement != null) statement.close();
-                if (connection != null) connection.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-        return false;
-    }
 
     private boolean registerUser(String username, String password) {
         try (Connection conn = DriverManager.getConnection(DB_URL, DB_USERNAME, DB_PASSWORD)) {

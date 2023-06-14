@@ -6,15 +6,11 @@
   <link rel="stylesheet" type="text/css" href="LoginStyle.css">
 </head>
 <body>
-<script>
-    var url;
-    url = window.location.href;
-</script>
 <div class="container">
   <h1>登录</h1>
-  <form action="/LoginServlet" method="post">
+  <form action="LoginServlet" method="post">
     <label>
-      <input type="text" placeholder="用户名" required name="name">
+      <input type="text" placeholder="用户名" required name="id">
     </label>
     <label>
       <input type="password" placeholder="密码" required name="pwd">
