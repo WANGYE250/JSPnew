@@ -26,16 +26,17 @@ public class Validate {
             e.printStackTrace();
         }
 
-        String sql = "";
-         sql = "SELECT * FROM  ? WHERE id = ? AND password = ?";
-        
+        String[] sqlString = new String[5] ;
+         sqlString[1] = "SELECT * FROM Administrator WHERE id = ? AND password = ?";
+         sqlString[2] = "SELECT * FROM Teacher WHERE id = ? AND password = ?";
+         sqlString[3] = "SELECT * FROM Student WHERE id = ? AND password = ?";
         try {
 
             if (connection != null) {
-                statement = connection.prepareStatement(sql);
-                statement.setString(1, Profession);
-                statement.setString(2, UserName);
-                statement.setString(3, Password);
+                statement = connection.prepareStatement(sqlString[pro_switch(Profession)]);
+
+                statement.setString(1, UserName);
+                statement.setString(2, Password);
                 resultSet = statement.executeQuery();
             }
             if (resultSet != null) {
@@ -56,5 +57,20 @@ public class Validate {
             }
         }
         return false;
+    }
+    private int pro_switch(String Prof){
+        int re=0;
+        switch (Prof) {
+            case "Student" -> {
+                re= 3;
+            }
+            case "Teacher" -> {
+                re= 2;
+            }
+            case "Administrator" -> {
+                re= 1;
+            }
+        }
+        return re;
     }
 }

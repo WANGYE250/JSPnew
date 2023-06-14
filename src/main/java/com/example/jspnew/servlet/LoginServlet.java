@@ -17,7 +17,6 @@ import java.util.ArrayList;
 public class LoginServlet extends HttpServlet {
     @Serial
     private static final long serialVersionUID = 1L;
-
     private static final String DB_URL = "jdbc:sqlserver://localhost:3066;databaseName=TestSystem;trustServerCertificate=true";
     private static final String DB_USERNAME = "sa";
     private static final String DB_PASSWORD = "sjk12345";
@@ -36,8 +35,8 @@ public class LoginServlet extends HttpServlet {
                 // 用户验证成功，进行相应的操作
                 //response.getWriter().println("登录成功");
                 PrintWriter out = response.getWriter();
-
                 out.print("登录成功");
+
             } else {
                 // 用户验证失败，显示错误信息
                // response.getWriter().println("登录");
