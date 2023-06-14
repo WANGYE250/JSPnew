@@ -1,4 +1,4 @@
-package com.example.jspnew;
+package com.example.jspnew.servlet;
 
 import java.io.*;
 import jakarta.servlet.http.*;

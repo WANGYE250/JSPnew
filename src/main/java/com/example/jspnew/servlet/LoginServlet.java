@@ -1,4 +1,4 @@
-package com.example.jspnew;
+package com.example.jspnew.servlet;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -56,6 +56,9 @@ public class LoginServlet extends HttpServlet {
                 response.getWriter().println("注册失败");
             }
         }
+        else if (action != null && action.equals("Teacher")){
+
+        }
     }
 
     private boolean validateUser(String username, String password) {
@@ -77,16 +80,8 @@ public class LoginServlet extends HttpServlet {
 
             if (connection != null) {
                 statement = connection.prepareStatement(sql);
-            }
-
-            if (statement != null) {
                 statement.setString(1, username);
-            }
-            if (statement != null) {
                 statement.setString(2, password);
-            }
-
-            if (statement != null) {
                 resultSet = statement.executeQuery();
             }
             if (resultSet != null) {
