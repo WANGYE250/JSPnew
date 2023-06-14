@@ -5,11 +5,18 @@ import java.sql.*;
 public class Validate {
     private static final String DB_URL = "jdbc:sqlserver://localhost:3066;databaseName=TestSystem;trustServerCertificate=true";
     private static final String DB_USERNAME = "sa";
+
+    public int getProfessionNum() {
+        return ProfessionNum;
+    }
+
     private static final String DB_PASSWORD = "sjk12345";
     private final String Profession;
+    private final int ProfessionNum;
 
     public Validate(String Profession){
         this.Profession=Profession;
+        ProfessionNum=pro_switch(Profession);
     }
 
     public boolean ValidateUser(String UserName,String Password){
@@ -33,7 +40,7 @@ public class Validate {
         try {
 
             if (connection != null) {
-                statement = connection.prepareStatement(sqlString[pro_switch(Profession)]);
+                statement = connection.prepareStatement(sqlString[ProfessionNum]);
 
                 statement.setString(1, UserName);
                 statement.setString(2, Password);
@@ -58,7 +65,7 @@ public class Validate {
         }
         return false;
     }
-    private int pro_switch(String Prof){
+    public int pro_switch(String Prof){
         int re=0;
         switch (Prof) {
             case "Student" -> {

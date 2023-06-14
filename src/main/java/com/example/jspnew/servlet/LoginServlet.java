@@ -1,6 +1,7 @@
 package com.example.jspnew.servlet;
 
 import com.example.jspnew.javabean.Validate;
+import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -36,6 +37,19 @@ public class LoginServlet extends HttpServlet {
                 //response.getWriter().println("登录成功");
                 PrintWriter out = response.getWriter();
                 out.print("登录成功");
+                int type=validate.getProfessionNum();
+                switch (type){
+                    case 1->{
+                        RequestDispatcher dispatcher=request.getRequestDispatcher("AdminMain.jsp");
+                        dispatcher.forward(request,response);
+                    }case 2->{
+                        RequestDispatcher dispatcher=request.getRequestDispatcher("AdminMain.jsp");
+                        dispatcher.forward(request,response);
+                    }case 3->{
+                        RequestDispatcher dispatcher=request.getRequestDispatcher("AdminMain.jsp");
+                        dispatcher.forward(request,response);
+                    }
+                }
 
             } else {
                 // 用户验证失败，显示错误信息
@@ -62,5 +76,9 @@ public class LoginServlet extends HttpServlet {
             e.printStackTrace();
             return false;
         }
+    }
+    private void dispatch(String pro){
+        Validate validate=new Validate(pro);
+
     }
 }
